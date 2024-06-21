@@ -8,9 +8,9 @@ on:
     - cron: "0 */24 * * *" # every 6 hours
   # Triggers the workflow on push or pull request events but only for the "main" branch
   # push:
-  #   branches: [ "main" ]
+  #   branches: [ "master" ]
   # pull_request:
-  #   branches: [ "main" ]
+  #   branches: [ "master" ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -26,10 +26,12 @@ jobs:
     steps:
       # generates a snake game from a github user (<github_user_name>) contributions graph, output a svg animation at <svg_out_path>
       - name: generate github-contribution-grid-snake.svg
-        uses: Platane/snk@master
+        uses: Platane/snk@v3
         with:
           github_user_name: ${{ github.repository_owner }}
-          svg-out_path: dist/github-contribution-grid-snake.svg
+          outputs: |
+            dist/github-snake.svg
+            dist/github-snake-dark.svg?palette=github-dark
           
-      - name: push the files to thr dist folder
+      - name: push the files to the dist folder
         uses: stefanzweifel/git-auto-commit-action@v4
